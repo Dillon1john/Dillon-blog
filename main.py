@@ -166,7 +166,7 @@ def show_post(post_id):
             flash("Unauthorized")
             form = LoginForm()
             return render_template("login.html", form=form, error=error)
-    all_comments = Comment.query.all()
+    all_comments = db.session.query(Comment).filter(Comment.post_id == post_id).all()
     return render_template("post.html", post=requested_post,
                            commentform=commentform,
                            comments=all_comments)
